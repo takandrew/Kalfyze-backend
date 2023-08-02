@@ -1,14 +1,15 @@
-﻿using Kalfyze_backend.Data;
+﻿using Kalfyze_backend.Data.Interfaces;
 using Kalfyze_backend.Models.DTO;
 using Kalfyze_backend.Models.Entities;
+using Kalfyze_backend.Services.Interfaces;
 
 namespace Kalfyze_backend.Services
 {
-    public class ValuesService
+    public class ValuesService : IService
     {
-        private ValuesRepository _valuesRepository;
+        private IRepository _valuesRepository;
 
-        public ValuesService(ValuesRepository valuesRepository)
+        public ValuesService(IRepository valuesRepository)
         {
              _valuesRepository = valuesRepository;
         }

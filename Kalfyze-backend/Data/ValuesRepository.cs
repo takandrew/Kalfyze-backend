@@ -1,9 +1,10 @@
-﻿using Kalfyze_backend.Models.Entities;
+﻿using Kalfyze_backend.Data.Interfaces;
+using Kalfyze_backend.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Kalfyze_backend.Data
 {
-    public class ValuesRepository
+    public class ValuesRepository : IRepository
     {
         private KalfyzeDbContext _context;
 

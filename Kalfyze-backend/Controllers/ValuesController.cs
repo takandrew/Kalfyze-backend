@@ -1,6 +1,6 @@
 ﻿using Kalfyze_backend.Models.DTO;
 using Kalfyze_backend.Models.Entities;
-using Kalfyze_backend.Services;
+using Kalfyze_backend.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kalfyze_backend.Controllers
@@ -9,9 +9,9 @@ namespace Kalfyze_backend.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        private ValuesService _valuesService;
+        private IService _valuesService;
 
-        public ValuesController(ValuesService valuesService)
+        public ValuesController(IService valuesService)
         { 
             _valuesService = valuesService;
         }

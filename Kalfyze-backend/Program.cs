@@ -1,6 +1,8 @@
 using System.Text.Json.Serialization;
 using Kalfyze_backend.Data;
+using Kalfyze_backend.Data.Interfaces;
 using Kalfyze_backend.Services;
+using Kalfyze_backend.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,8 +16,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<KalfyzeDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<ValuesRepository>();
-builder.Services.AddScoped<ValuesService>();
+builder.Services.AddScoped<IRepository,ValuesRepository>();
+builder.Services.AddScoped<IService, ValuesService>();
 
 var app = builder.Build();
 
