@@ -1,6 +1,6 @@
-﻿namespace Kalfyze_backend.Models
+﻿namespace Kalfyze_backend.Models.Entities
 {
-    public class Franchise
+    public class Content_Type
     {
         public int Id { get; set; }
         public string Name { get; set; }

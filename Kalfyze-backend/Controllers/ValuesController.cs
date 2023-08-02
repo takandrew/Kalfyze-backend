@@ -1,10 +1,7 @@
-﻿using System.Net;
-using System.Security.Principal;
-using System.Xml.Linq;
-using Kalfyze_backend.Data;
-using Kalfyze_backend.Models;
+﻿using Kalfyze_backend.Models.DTO;
+using Kalfyze_backend.Models.Entities;
+using Kalfyze_backend.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Kalfyze_backend.Controllers
 {
@@ -12,25 +9,25 @@ namespace Kalfyze_backend.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        private KalfyzeDbContext _context;
+        private ValuesService _valuesService;
 
-        public ValuesController(KalfyzeDbContext context)
-        {
-            _context = context;
+        public ValuesController(ValuesService valuesService)
+        { 
+            _valuesService = valuesService;
         }
 
         // GET: api/<ValuesController>
         [HttpGet, Route("getcontenttypes")]
-        public async Task<IEnumerable<Content_Type>> Get()
+        public async Task<IEnumerable<ContentTypeDTO>> GetAllContentTypes()
         {
             
-            return await _context.ContentTypes.ToListAsync();
+            return await _valuesService.GetAllContentTypes();
         }
 
         [HttpGet, Route("getcontenttypes/{id:int}")]
-        public ActionResult<Content_Type> Get(int id)
+        public async Task<ActionResult<ContentTypeDTO>> GetContentTypeById(int id)
         {
-            var contenttype = _context.ContentTypes.Find(id);
+            var contenttype = await _valuesService.GetContentTypeById(id);
             if (contenttype != null)
             {
                 return contenttype;
@@ -43,31 +40,25 @@ namespace Kalfyze_backend.Controllers
 
         // GET: api/<ValuesController>
         [HttpGet, Route("getcontent")]
-        public async Task<ActionResult<IEnumerable<Content>>> GetContent()
+        public async Task<ActionResult<IEnumerable<Content>>> GetAllContent()
         {
-            return Ok(await _context.Contents.Include(x => x.Type).Include(x => x.Franchise).ToListAsync());
+            return Ok(await _valuesService.GetAllContent());
         }
         
 
         // POST api/<ValuesController>
         [HttpPost, Route("postcontenttype")]
-        public void Post(string value)
+        public void PostContentType(string value)
         {
-            var contentType = new Content_Type();
-            contentType.Name = value;
-            _context.ContentTypes.Add(contentType);
-            _context.SaveChanges();
+            _valuesService.AddContentType(value);
         }
 
         // DELETE api/<ValuesController>/5
         [HttpDelete, Route("deletecontenttype/{id:int}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> DeleteContentType(int id)
         {
-            var contenttype = _context.ContentTypes.Find(id);
-            if (contenttype != null)
+            if (await _valuesService.DeleteContentType(id))
             {
-                _context.ContentTypes.Remove(contenttype);
-                _context.SaveChanges();
                 return Ok();
             }
             else

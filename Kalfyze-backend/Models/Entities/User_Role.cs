@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Kalfyze_backend.Models
+namespace Kalfyze_backend.Models.Entities
 {
     public class User_Role
     {

@@ -1,4 +1,4 @@
-﻿using Kalfyze_backend.Models;
+﻿using Kalfyze_backend.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Kalfyze_backend.Data

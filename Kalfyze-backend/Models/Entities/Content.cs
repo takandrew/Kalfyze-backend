@@ -1,4 +1,4 @@
-﻿namespace Kalfyze_backend.Models
+﻿namespace Kalfyze_backend.Models.Entities
 {
     public class Content
     {
